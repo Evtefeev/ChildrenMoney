@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Детский Учет Денег</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'styles.css') }}" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
+  </head>
+  <body>
+    <div id="background-overlay"></div>
+
+    <div class="header">
+      <h1>Детский Учет Денег</h1>
+    </div>
+    <div class="cont">
+      {% for child, balance in balances.items() %}
+        <div class="child-cont">
+          <h2>{{ names[child] }}: {{ balance }} {{ currency }}</h2>
+
+          <form action="/add_transaction" method="post">
+            <div>
+              <label for="amount">Сумма:</label>
+              <input type="number" name="amount" required /><br />
+            </div>
+            <div>
+              <label for="description">Описание:</label>
+              <input type="text" name="description" /><br />
+            </div>
+            <input type="hidden" name="child" value="{{ child }}" />
+
+            <button type="submit">Добавить транзакцию</button>
+          </form>
+
+          <h3>История транзакций:</h3>
+          <ul>
+            {% for transaction in Transaction.query.filter_by(child_name = child).all()|reverse %}
+              {% if transaction.amount > 0 %}
+                <li style="color: green;">
+                  + {{ transaction.amount }} {{ currency }}{% if transaction.description %}
+                    - {{ transaction.description }}
+                  {% endif %}
+                </li>
+              {% elif transaction.amount < 0 %}
+                <li style="color: red;">
+                  - {{ transaction.amount * - 1 }} {{ currency }}{% if transaction.description %}
+                    - {{ transaction.description }}
+                  {% endif %}
+                </li>
+              {% else %}
+                <li>
+                  {{ transaction.amount }} {{ currency }} {% if transaction.description %}
+                    - {{ transaction.description }}
+                  {% endif %}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>

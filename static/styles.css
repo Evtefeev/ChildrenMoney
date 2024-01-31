@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-image: url('/static/background.jpg');
+    /* Adjust the filename if necessary */
+    background-size: cover;
+    /* Ensure the background covers the entire screen */
+    background-repeat: no-repeat;
+    /* background-position: center center; */
+    position: relative;
+    /* Necessary for positioning the overlay */
+
+    color: rgb(255, 173, 80);
+    font-size: large;
+}
+
+#background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8));
+    /* Adjust the alpha value for darkness */
+    z-index: -1;
+    /* Place the overlay behind other content */
+}
+
+h1,
+h2 {
+    color: #ffee00;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+.cont {
+    display: flex;
+    justify-content: center;
+}
+
+.child-cont {
+    margin: 5%;
+}
+
+.header {
+    text-align: center;
+}
+
+.child-cont form {
+
+    text-align: center;
+
+}
+
+.child-cont form input {
+    float: right;
+
+
+}
+
+.child-cont form input,
+button {
+    background-color: #cc6300;
+    color: #312e02;
+    height: 25px;
+    border-radius: 30px;
+    border-color: #686100;
+    font-weight: bold;
+
+}
+
+.child-cont form div {
+    display: flex;
+
+    margin-bottom: 25px;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.cont ul {
+    font-weight: bold;
+    font-size: medium;
+}
